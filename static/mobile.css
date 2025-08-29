@@ -1,0 +1,135 @@
+
+/* Mobile-first enhancements for Persian RTL chat + WebRTC */
+/* Ensures comfortable tap targets, single-column flow, and sticky composer on small screens */
+
+html, body { height: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+/* Base touch sizes */
+button, .btn, input, select, textarea {
+  min-height: 44px;
+  padding: 10px 14px;
+  font-size: 16px; /* avoids iOS zoom */
+  border-radius: 12px;
+}
+
+/* Make the whole app full-height and column on small screens */
+@media (max-width: 900px) {
+  .container {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+  }
+  .header .brand { order: 0; }
+  #status { order: 1; justify-self: end; }
+  .room, .toolbar { order: 2; width: 100%; }
+}
+
+/* Messages area should scroll independently */
+@media (max-width: 900px) {
+  .messages {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: none;
+    border-radius: 12px;
+    padding-bottom: 12px;
+    max-height: calc(100dvh - 260px); /* header + composer */
+  }
+}
+
+/* Sticky composer at bottom */
+@media (max-width: 900px) {
+  .chat-form, form.chat-form {
+    position: sticky;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    backdrop-filter: saturate(1.2) blur(8px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 10px;
+  }
+  .chat-form input[type="text"],
+  .chat-form input[type="search"],
+  .chat-form textarea {
+    width: 100%;
+  }
+}
+
+/* Compact user list in a collapsible style if present */
+@media (max-width: 900px) {
+  .sidebar, .users, .user-list, #userList {
+    max-height: 40dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+  }
+}
+
+/* Video / call bar adjustments */
+@media (max-width: 900px) {
+  video, .video, .call, .call-bar {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+  .call-right, .call-left {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .output-select select { width: 100%; }
+}
+
+/* Incoming call card like system sheet */
+@media (max-width: 600px) {
+  .incoming-card, .incoming {
+    position: fixed;
+    inset-inline: 12px;
+    bottom: 12px;
+    z-index: 1000;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .incoming-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .incoming-actions .accept, .incoming-actions .decline {
+    font-weight: 700;
+  }
+}
+
+/* Make tables/lists wrap */
+@media (max-width: 600px) {
+  .compact, table, .toolbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Improve focus rings for accessibility */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--accent-1, #6aa5ff);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Respect dark/light */
+@media (prefers-color-scheme: light) {
+  :root { color-scheme: light; }
+}
+
+/* Safe viewport on iOS */
+@supports (padding: max(0px)) {
+  .chat-form { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+  .container { padding-top: max(8px, env(safe-area-inset-top)); }
+}
