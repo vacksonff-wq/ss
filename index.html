@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="fa">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>وب‌چت + تماس (WebRTC)</title>
+<link href="data:," rel="icon"/>
+<link href="/static/styles.css" rel="stylesheet">
+</link><link href="/static/mobile.css" rel="stylesheet"/></head>
+<body>
+<div class="container">
+<header class="header">
+<div class="brand"><div class="logo"></div> چت &amp; تماس</div>
+<div class="small" id="status">منتظر اتصال…</div>
+<div class="room">
+<form id="roomForm">
+<input id="roomInput" placeholder="نام روم…" type="text"/>
+<button class="btn" type="submit">ورود / تنظیم</button>
+</form>
+</div>
+<div class="users">
+<div class="users-head"><span class="small">کاربران</span></div>
+<div class="users-compact">
+<button class="btn small" id="refreshUsers" title="تازه‌سازی" type="button">↻</button>
+<ul class="user-list compact" dir="rtl" id="userList"></ul>
+</div>
+</div>
+</header>
+<main class="main">
+<ul class="messages" id="messages"></ul>
+<form autocomplete="off" class="chat-form" id="chatForm">
+<input disabled="" id="messageInput" placeholder="پیام خود را بنویسید…" type="text"/>
+<button class="btn" disabled="" id="sendBtn" type="submit">ارسال</button>
+</form>
+</main>
+<section class="hidden" id="callBar">
+<div class="call-left">
+<div class="avatar"></div>
+<div>
+<div class="small">در حال تماس</div>
+<div id="callWith">—</div>
+</div>
+</div>
+<div class="call-right">
+<div class="mic"><button id="micToggleBtn" type="button">میکروفون</button></div>
+<div class="output-select">
+<label class="small" for="outputSelect">خروجی صدا</label>
+<select id="outputSelect"></select>
+</div>
+<div class="end"><button id="endCallBtn" type="button">پایان تماس</button></div>
+</div>
+</section>
+</div>
+<div class="hidden" id="incoming">
+<div class="incoming-card">
+<div class="caller">
+<div class="avatar"></div>
+<div id="callerName">تماس ورودی</div>
+</div>
+<div class="incoming-actions">
+<button class="accept" id="acceptBtn">پاسخ</button>
+<button class="decline" id="declineBtn">رد تماس</button>
+</div>
+</div>
+</div>
+<audio autoplay="" id="localAudio" muted="" style="display:none"></audio>
+<audio autoplay="" id="remoteAudio" style="display:none"></audio>
+<script src="/static/app.js"></script>
+</body>
+</html>
